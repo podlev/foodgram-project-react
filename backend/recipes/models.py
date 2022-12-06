@@ -1,7 +1,6 @@
+from colorfield.fields import ColorField
 from django.contrib.auth import get_user_model
 from django.db import models
-
-from colorfield import fields
 
 User = get_user_model()
 
@@ -11,7 +10,7 @@ class Tag(models.Model):
         verbose_name='Название',
         max_length=255,
         unique=True)
-    color = fields.CharField(
+    color = ColorField(
         verbose_name='Цвет',
         max_length=7,
         unique=True)
@@ -50,7 +49,7 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     name = models.CharField(
         verbose_name='Название',
-        max_length=200,
+        max_length=255,
         unique=True)
     text = models.TextField(
         verbose_name='Описание'

@@ -115,6 +115,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -137,8 +141,9 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'SERIALIZERS': {
-        'user': 'users.serializers.UserSerializer',
-        'current_user': 'users.serializers.UserSerializer',
+        'user_list': 'users.serializers.UsersSerializer',
+        'user': 'users.serializers.UsersSerializer',
+        'current_user': 'users.serializers.UsersSerializer',
     },
     'PERMISSIONS': {
         'user_create': ['rest_framework.permissions.AllowAny'],

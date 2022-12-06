@@ -1,25 +1,45 @@
 from django.contrib import admin
 
-from users.models import User
-from recipes.models import Ingredient, Recipe, Tag
+from recipes.models import (Amount,
+                            Favorite,
+                            Ingredient,
+                            Recipe,
+                            ShoppingCart,
+                            Tag)
+from users.models import Follow, User
 
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('name', 'color', 'slug',)
+    list_display = ('name', 'color', 'slug')
+    search_fields = ('name', 'color', 'slug')
     empty_value_display = '-пусто-'
 
 
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ('name', 'measurement_unit',)
+    list_display = ('name', 'measurement_unit')
+    list_filter = ('measurement_unit',)
+    search_fields = ('name',)
     empty_value_display = '-пусто-'
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'text',)
+    list_display = ('name', 'text')
+    search_fields = ('name',)
+    empty_value_display = '-пусто-'
+
+
+class AmountAdmin(admin.ModelAdmin):
+    list_display = ('recipe', 'ingredient', 'amount')
+    list_filter = ('recipe',)
+    search_fields = ('recipe', 'ingredient')
     empty_value_display = '-пусто-'
 
 
 admin.site.register(User)
+admin.site.register(Follow)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(Amount, AmountAdmin)
+admin.site.register(Favorite)
+admin.site.register(ShoppingCart)
