@@ -22,24 +22,21 @@ class IngredientAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
+class AmountInLine(admin.StackedInline):
+    model = Amount
+
+
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('name', 'text')
     search_fields = ('name',)
     empty_value_display = '-пусто-'
-
-
-class AmountAdmin(admin.ModelAdmin):
-    list_display = ('recipe', 'ingredient', 'amount')
-    list_filter = ('recipe',)
-    search_fields = ('recipe', 'ingredient')
-    empty_value_display = '-пусто-'
+    inlines = [AmountInLine, ]
 
 
 admin.site.register(User)
 admin.site.register(Follow)
 admin.site.register(Tag, TagAdmin)
-admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
-admin.site.register(Amount, AmountAdmin)
+admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Favorite)
 admin.site.register(ShoppingCart)
