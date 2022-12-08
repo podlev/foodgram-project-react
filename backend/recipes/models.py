@@ -32,11 +32,11 @@ class Ingredient(models.Model):
     name = models.CharField(
         verbose_name='Название',
         max_length=255
-        )
+    )
     measurement_unit = models.CharField(
         verbose_name='Единица измерения',
         max_length=32
-        )
+    )
 
     class Meta:
         verbose_name = 'Ингредиент'
@@ -50,7 +50,8 @@ class Recipe(models.Model):
     name = models.CharField(
         verbose_name='Название',
         max_length=255,
-        unique=True)
+        unique=True
+    )
     text = models.TextField(
         verbose_name='Описание'
     )
@@ -77,6 +78,7 @@ class Recipe(models.Model):
         verbose_name='Дата публикации',
         auto_now_add=True
     )
+    amount_ingredients = models.ManyToManyField(Ingredient, through='Amount')
 
     class Meta:
         verbose_name = 'Рецепт'

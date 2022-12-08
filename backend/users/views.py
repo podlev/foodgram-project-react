@@ -23,6 +23,7 @@ class UsersViewSet(UserViewSet):
         permission_classes=[permissions.IsAuthenticated]
     )
     def subscriptions(self, request):
+        print('test')
         user = self.request.user
         queryset = User.objects.filter(following__user=user)
         if queryset:
@@ -39,10 +40,11 @@ class UsersViewSet(UserViewSet):
 
     @action(
         detail=True,
-        methods=['POST', 'DELETE'],
+        methods=['post', 'delete'],
         permission_classes=[permissions.IsAuthenticated]
     )
     def subscribe(self, request, id):
+
         user = request.user
         author = get_object_or_404(User, id=id)
         if request.method == 'POST':
