@@ -12,6 +12,7 @@ class User(AbstractUser):
         return f'{self.username}'
 
     class Meta:
+        ordering = ['username']
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
         constraints = [

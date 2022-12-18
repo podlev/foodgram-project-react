@@ -33,21 +33,21 @@ def delete_from(self, model, user, pk):
 
 
 def download_cart(list_ing):
-    SANS_REGULAR = settings.STATIC_ROOT / 'fonts/OpenSans-Regular.ttf'
-    SANS_REGULAR_NAME = 'OpenSans-Regular'
-    SANS_BOLD = settings.STATIC_ROOT / 'fonts/OpenSans-Bold.ttf'
-    SANS_BOLD_NAME = 'OpenSans-Bold'
+    sans_regular = settings.STATIC_ROOT / 'fonts/OpenSans-Regular.ttf'
+    sans_regular_name = 'OpenSans-Regular'
+    sans_bold = settings.STATIC_ROOT / 'fonts/OpenSans-Bold.ttf'
+    sans_bold_name = 'OpenSans-Bold'
 
-    pdfmetrics.registerFont(TTFont(SANS_REGULAR_NAME, SANS_REGULAR))
-    pdfmetrics.registerFont(TTFont(SANS_BOLD_NAME, SANS_BOLD))
+    pdfmetrics.registerFont(TTFont(sans_regular_name, sans_regular))
+    pdfmetrics.registerFont(TTFont(sans_bold_name, sans_bold))
 
     buffer = io.BytesIO()
     c = canvas.Canvas(buffer)
 
-    c.setFont(SANS_BOLD_NAME, 32)
+    c.setFont(sans_bold_name, 32)
     c.drawString(30, 775, 'Foodgram')
 
-    c.setFont(SANS_REGULAR_NAME, 20)
+    c.setFont(sans_regular_name, 20)
     c.drawString(30, 740, 'Ваш продуктовый помошник')
     c.line(30, 730, 580, 730)
 
