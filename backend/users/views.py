@@ -23,7 +23,6 @@ class UsersViewSet(UserViewSet):
         permission_classes=[permissions.IsAuthenticated]
     )
     def subscriptions(self, request):
-        print('test')
         user = self.request.user
         queryset = User.objects.filter(following__user=user)
         if queryset:
