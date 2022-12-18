@@ -55,8 +55,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def favorite(self, request, pk):
         if request.method == 'POST':
             return add_to(self, Favorite, request.user, pk)
-        else:
-            return delete_from(self, Favorite, request.user, pk)
+        return delete_from(self, Favorite, request.user, pk)
 
     @action(
         detail=True,
@@ -66,8 +65,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def shopping_cart(self, request, pk):
         if request.method == 'POST':
             return add_to(self, ShoppingCart, request.user, pk)
-        else:
-            return delete_from(self, ShoppingCart, request.user, pk)
+        return delete_from(self, ShoppingCart, request.user, pk)
 
 
 class DownloadCart(APIView):
