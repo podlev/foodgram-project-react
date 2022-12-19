@@ -36,12 +36,21 @@ class IngredientAmountSerializer(serializers.Serializer):
     id = serializers.IntegerField(required=True)
     amount = serializers.IntegerField(required=True)
 
+    def validate_amount(self, value):
+        if value <= 0:
+            raise serializers.ValidationError(
+                'Количесто ингредиента не может быть меньше отрицательным'
+            )
+        return value
+
 
 class RecipeSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     ingredients = AmountSerializer(many=True)
     tags = TagSerializer(many=True)
     image = Base64ImageField(required=True)
+    is_favorited = serializers.SerializerMethodField(read_only=True)
+    is_in_shopping_cart = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Recipe
@@ -53,8 +62,24 @@ class RecipeSerializer(serializers.ModelSerializer):
             'name',
             'image',
             'text',
-            'cooking_time'
+            'cooking_time',
+            'is_favorited',
+            'is_in_shopping_cart'
         )
+
+    def get_is_favorited(self, obj):
+        request = self.context.get('request')
+        if request.user.is_anonymous:
+            return False
+        favorite = request.user.favorites.filter(recipe=obj)
+        return favorite.exists()
+
+    def get_is_in_shopping_cart(self, obj):
+        request = self.context.get('request')
+        if request.user.is_anonymous:
+            return False
+        shopping_cart = request.user.cart.filter(recipe=obj)
+        return shopping_cart.exists()
 
 
 class RecipeShortSerializer(serializers.ModelSerializer):
