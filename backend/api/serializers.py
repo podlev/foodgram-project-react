@@ -4,7 +4,7 @@ from rest_framework import serializers
 from api.fields import Base64ImageField
 from recipes.models import Amount, Ingredient, Recipe, Tag
 from users.models import Follow
-from users.serializers import UserSerializer
+from users.serializers import UsersSerializer
 
 User = get_user_model()
 
@@ -45,7 +45,7 @@ class IngredientAmountSerializer(serializers.Serializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    author = UserSerializer(read_only=True)
+    author = UsersSerializer(read_only=True)
     ingredients = AmountSerializer(many=True)
     tags = TagSerializer(many=True)
     image = Base64ImageField(required=True)
